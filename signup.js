@@ -18,7 +18,7 @@ function sendOTP(){
     `;
 
     Email.send({
-        SecureToken : "833ac428-d96c-417c-b3fa-ad8a9ed82f31",
+        SecureToken : "07dd1f3b-e580-4ed9-8cf9-1e3d665ebd29",
         To : email.value,
         From : "sheikhtalha22999@gmail.com",
         Subject : "This is the from Ash_is_Coding, Please Subscribe",
