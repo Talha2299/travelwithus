@@ -2,176 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TravelWithUs - Sign Up</title>
+    <title>OTP Tutorial in JS</title>
+
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <!-- Befor moving ahead please wheather you created credentials... -->
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px 0;
+        body{
             text-align: center;
         }
-        nav {
-            background-color: #444;
-            padding: 10px 0;
+        .form{
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 1rem;
             align-items: center;
+            justify-content: center;
+            width: fit-content;
+            margin: auto;
         }
-        nav .left-links,
-        nav .right-link {
-            display: flex;
-            align-items: center;
+        input{
+            padding: 0.6rem;
         }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-        .signup-form,
-        .otp-form {
-            padding: 50px;
-            text-align: center;
-        }
-        .signup-form h1,
-        .otp-form h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-        .signup-form p,
-        .otp-form p {
-            font-size: 1.2em;
-            color: #666;
-            line-height: 1.6;
-        }
-        .signup-form input[type="text"],
-        .signup-form input[type="email"],
-        .signup-form input[type="password"],
-        .otp-form input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
-        .signup-form input[type="submit"],
-        .otp-form input[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
+        .btn{
+            padding: 0.5rem 0.8rem;
+            background-color: violet;
+            outline: none;
             border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 1em;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            border-radius: 16px;
         }
-        .signup-form input[type="submit"]:hover,
-        .otp-form input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-        .otpverify {
+        .otpverify{
             display: none;
         }
     </style>
-    <script src="https://smtpjs.com/v3/smtp.js"></script>
-    <script>
-        function sendOTP() {
-            const email = document.getElementById('email');
-            const otpverify = document.getElementsByClassName('otpverify')[0];
-
-            // Generating random number as OTP
-            let otp_val = Math.floor(Math.random() * 10000);
-
-            let emailbody = `
-                <h1>Please Subscribe to Ash_is_Coding</h1> <br>
-                <h2>Your OTP is </h2>${otp_val}
-            `;
-
-            Email.send({
-                SecureToken: "7e2e5c6d-ca82-4381-9421-0e32e255c533",
-                To: email.value,
-                From: "sheikhtalha22999@gmail.com",
-                Subject: "This is from Ash_is_Coding, Please Subscribe",
-                Body: emailbody
-            }).then(
-                message => {
-                    if (message === "OK") {
-                        alert("OTP sent to your email " + email.value);
-
-                        // Making OTP input visible
-                        otpverify.style.display = "block";
-                        const otp_inp = document.getElementById('otp_inp');
-                        const otp_btn = document.getElementById('otp-btn');
-
-                        otp_btn.addEventListener('click', () => {
-                            // Checking whether sent OTP is valid
-                            if (otp_inp.value == otp_val) {
-                                alert("Email address verified...");
-                            } else {
-                                alert("Invalid OTP");
-                            }
-                        });
-                    } else {
-                        alert("Failed to send OTP. Please try again.");
-                    }
-                }
-            );
-        }
-
-        document.addEventListener('DOMContentLoaded', (event) => {
-            document.getElementById('signupForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-                sendOTP();
-            });
-        });
-    </script>
 </head>
 <body>
-    <header>
-        <h1>Sign Up for TravelWithUs</h1>
-    </header>
-    <nav>
-        <div class="left-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="services.html">Services</a>
+    
+
+    <h1>OTP Using JavaScript</h1>
+    <div class="form">
+        <input type="email" id="email" placeholder="Enter Email...">
+
+        <div class="otpverify">
+            <input type="text" id="otp_inp" placeholder="Enter the OTP sent to your Email...">
+            <button class="btn" id="otp-btn">Verify</button>
         </div>
-        <div class="right-link">
-            <a href="signup.html" class="signup">Sign Up</a>
-        </div>
-    </nav>
-    <div class="signup-form" id="signup-form">
-        <h1>Create an Account</h1>
-        <form id="signupForm">
-            <input type="text" name="name" id="name" placeholder="Full Name" required><br>
-            <input type="email" name="email" id="email" placeholder="Email Address" required><br>
-            <input type="password" name="password" id="password" placeholder="Password" required><br>
-            <input type="submit" value="Send OTP">
-        </form>
-        <p>Already have an account? <a href="#">Log In</a></p>
+
+        <button onclick="sendOTP()" class="btn">Send OTP</button>
     </div>
-    <div class="otp-form otpverify" id="otp-form">
-        <h1>Verify OTP</h1>
-        <input type="text" id="otp_inp" placeholder="Enter OTP" required><br>
-        <button id="otp-btn">Verify OTP</button>
-    </div>
-    <footer>
-        &copy; 2024 TravelWithUs - All rights reserved.
-    </footer>
+
+    <script src="./signup.js"></script>
 </body>
 </html>
